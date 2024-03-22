@@ -1,17 +1,12 @@
 "use client";
-import { PlayIcon, PlusIcon } from "@heroicons/react/24/outline";
-import { ArrowPathIcon, PauseIcon } from "@heroicons/react/24/solid";
+import { PlusIcon } from "@heroicons/react/24/outline";
+import { ArrowPathIcon } from "@heroicons/react/24/solid";
+import { useEffect, useState } from "react";
 import { Button } from "../components/Button";
-import {
-  addExercise,
-  pauseTimer,
-  resetTimer,
-  startTimer,
-} from "../lib/features/timer/timerSlice";
+import { StartButton } from "../components/StartButton";
+import { addExercise, resetTimer } from "../lib/features/timer/timerSlice";
 import { useAppDispatch, useAppSelector } from "../lib/hooks";
 import { Exercise } from "./Exercise";
-import { StartButton } from "../components/StartButton";
-import { useEffect, useState } from "react";
 
 export function ExerciseFeed() {
   const dispatch = useAppDispatch();

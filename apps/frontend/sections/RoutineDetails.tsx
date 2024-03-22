@@ -28,11 +28,7 @@ export function RoutineDetails() {
     dispatch(setExercises(exercises));
   }, []);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<{ name: string }>({
+  const { register, handleSubmit } = useForm<{ name: string }>({
     defaultValues: {
       name: name ?? "",
     },

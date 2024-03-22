@@ -1,0 +1,55 @@
+name: Checks
+
+on:
+  pull_request:
+    branches:
+      - main
+      - production
+
+  push:
+    branches:
+      - main
+      - production
+
+jobs:
+  build:
+    name: Build and Lint
+    timeout-minutes: 15
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: [18]
+
+    steps:
+      - name: Checkout 🛎
+        uses: actions/checkout@master
+        with:
+          fetch-depth: 2
+
+      - name: Cache turbo build setup
+        uses: actions/cache@v3
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
+
+      - name: Setup node env 🏗
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+        env:
+          CI: false
+
+      - name: Lint
+        run: npm run lint
+        env:
+          CI: false
